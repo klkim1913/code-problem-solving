@@ -1,3 +1,5 @@
+package baekjoon.silver;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -24,7 +26,7 @@ class LongestIncreasingSubsequence {
             }
         }
 
-        int max = Arrays.stream(D).max().getAsInt();
+        int max = Arrays.stream(D).max().orElse(0);
         System.out.print(max);
     }
 }
