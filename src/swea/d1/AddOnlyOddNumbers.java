@@ -1,4 +1,4 @@
-package swea.D1;
+package swea.d1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
