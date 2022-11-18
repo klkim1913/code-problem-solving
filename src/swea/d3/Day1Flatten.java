@@ -24,7 +24,7 @@ public class Day1Flatten {
                     break;
                 }
             }
-            Arrays.sort(arr);   // 최종 확인 필요..
+            Arrays.sort(arr);   // 이런 최종 작업해야하는것들 놓치지 말자
             System.out.printf("#%d %d\n", tc, arr[99] - arr[0]);
         }
     }
