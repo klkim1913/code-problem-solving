@@ -7,38 +7,40 @@ import java.io.InputStreamReader;
 public class N_Queen {
     public static int N;
     public static int sum;
+    public static int[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        boolean[][] blocked = new boolean[N][N];
+        arr = new int[N];
 
-        dfs(0, blocked);
+        dfs(0);
         System.out.println(sum);
     }
 
-    private static void dfs(int depth, boolean[][] blocked) {
+    private static void dfs(int depth) {
         if (depth == N) {
             sum++;
             return;
         }
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                if (!blocked[i][j]) {
-                    for (int k = 0; k < N; k++) {
-                        blocked[i][k] = true;
-                        blocked[k][j] = true;
-                    }
-                    for (int k = 0; k < N; k++) {
-                        for (int l = 0; l < N; l++) {
-                            if ((k + l) == (i + j) || Math.abs(k - l) == Math.abs(i - j)) {
-                                blocked[k][l] = true;
-                            }
-                        }
-                    }
-                    dfs(depth + 1, blocked);
-                }
+        for (int j = 0; j < N; j++) {
+            arr[depth] = j;
+            if (isPossible(depth)) {
+                dfs(depth + 1);
             }
         }
     }
+
+    private static boolean isPossible(int row) {
+        for (int i = 0; i < row; i++) {
+            if (arr[row] == arr[i]) {
+                return false;
+            } else if (Math.abs(row - i) == Math.abs(arr[row] - arr[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
