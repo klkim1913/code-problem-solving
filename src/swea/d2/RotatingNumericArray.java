@@ -1,57 +1,53 @@
 package swea.d2;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class RotatingNumericArray {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
         for (int tc = 1; tc <= T; tc++) {
-            int N = Integer.parseInt(br.readLine());
-            int[][] arr = new int[N][N];
-            for (int i = 0; i < N; i++) {
+            int[][] arr = new int[9][9];
+            for (int i = 0; i < 9; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                for (int j = 0; j < N; j++) {
+                for (int j = 0; j < 9; j++) {
                     arr[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            int[][] arr90 =new int[N][N];
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    arr90[i][j]=arr[N-1-j][i];
+            int result = 1;
+            for (int i = 0; i < 9 && result == 1; i++) {
+                int[] check1 = new int[9];
+                int[] check2 = new int[9];
+                for (int j = 0; j < 9; j++) {
+                    if (++check1[arr[i][j] - 1] > 1) {
+                        result = 0;
+                        break;
+                    }
+                    if (++check2[arr[j][i] - 1] > 1) {
+                        result = 0;
+                        break;
+                    }
                 }
             }
-            int[][] arr180 =new int[N][N];
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    arr180[i][j]=arr[N-1-i][N-1-j];
+            if (result == 1) {
+                int[] d = {-1, 0, 1};
+                for (int i = 1; i < 9 && result == 1; i += 3) {
+                    for (int j = 1; j < 9 && result == 1; j += 3) {
+                        int[] check3 = new int[9];
+                        for (int k = 0; k < 3 && result == 1; k++) {
+                            for (int l = 0; l < 3; l++) {
+                                if (++check3[arr[i + d[k]][j + d[l]] - 1] > 1) {
+                                    result = 0;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            int[][] arr270 =new int[N][N];
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    arr270[i][j]=arr[j][N-1-i];
-                }
-            }
-
-            System.out.println("#"+tc);
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    System.out.print(arr90[i][j]);
-                }
-                System.out.print(" ");
-                for (int j = 0; j < N; j++) {
-                    System.out.print(arr180[i][j]);
-                }
-                System.out.print(" ");
-                for (int j = 0; j < N; j++) {
-                    System.out.print(arr270[i][j]);
-                }
-                System.out.println();
-            }
+            System.out.printf("#%d %d\n", tc, result);
         }
     }
 }
