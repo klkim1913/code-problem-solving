@@ -15,13 +15,7 @@ public class Main {
                 cnt--;
                 continue;
             }
-            if (num == 2)
-                continue;
-            if (num % 2 == 0) {
-                cnt--;
-                continue;
-            }
-            for (int j = 3; j * j <= num; j += 2) {
+            for (int j = 2; j * j <= num; j++) {
                 if (num % j == 0) {
                     cnt--;
                     break;
