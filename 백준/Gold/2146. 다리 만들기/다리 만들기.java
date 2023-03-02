@@ -69,7 +69,14 @@ public class Main {
 					v[ni][nj] = true;
 					q.offer(new int[] { ni, nj });
 					arr[ni][nj] = num;
-					list.get(size).add(new int[] { ni, nj });
+					for (int d2 = 0; d2 < 4; d2++) {
+						int nni = ni + di[d2];
+						int nnj = nj + dj[d2];
+						if (0 <= nni && nni < N && 0 <= nnj && nnj < N && arr[nni][nnj] == 0) {
+							list.get(size).add(new int[] { ni, nj });
+							break;
+						}
+					}
 				}
 			}
 		}
