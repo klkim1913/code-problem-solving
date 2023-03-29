@@ -21,31 +21,27 @@ public class Solution {
 			}
 			min = Integer.parseInt(st.nextToken());
 			st = new StringTokenizer(br.readLine(), " ");
-			int[] plan = new int[12];
-			for (int i = 0; i < 12; i++) {
+			int[] plan = new int[13];
+			for (int i = 1; i <= 12; i++) {
 				plan[i] = Integer.parseInt(st.nextToken());
 			}
-			dfs(0, 0, price, plan);
+			int dp[] = new int[13];
+			for (int i = 1; i <= 12; i++) {
+				dp[i] = Integer.MAX_VALUE;
+			}
+			dp[0] = 0;
+			for (int i = 1; i <= 12; i++) {
+				dp[i] = Math.min(dp[i - 1] + price[day] * plan[i], dp[i - 1] + price[month]);
+				if (i - 3 >= 0) {
+					dp[i] = Math.min(dp[i], dp[i - 3] + price[month3]);
+				}
+			}
+			if (min > dp[12])
+				min = dp[12];
 			sb.append("#" + tc + " " + min + "\n");
 		}
 		System.out.print(sb);
 		br.close();
-	}
-
-	private static void dfs(int mon, int total, int[] price, int[] plan) {
-		if (total >= min)
-			return;
-		if (mon > 11) {
-			if (min > total)
-				min = total;
-			return;
-		}
-		// 하루
-		dfs(mon + 1, total + plan[mon] * price[day], price, plan);
-		// 한달
-		dfs(mon + 1, total + price[month], price, plan);
-		// 세달
-		dfs(mon + 3, total + price[month3], price, plan);
 	}
 
 }
