@@ -44,7 +44,8 @@ public class Solution {
 						sum++;
 				}
 			}
-			sb.append("#" + tc + " " + sum + "\n");
+//			sb.append("#" + tc + " " + sum + "\n");
+			sb.append('#').append(tc).append(' ').append(sum).append('\n');
 		}
 		System.out.print(sb);
 		br.close();
